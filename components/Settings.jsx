@@ -44,10 +44,10 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
                     </div>
                     <Divider/>
                     <p><b>Glasscord won't inject!</b></p>
-                    <p>Close discord from task manager, and reopen.</p>
+					<p>Make sure you have a supported theme selected. glass_dark should automatically install when you click inject - Go enable it.</p>
 
                     <p><b>Everything is cyan!</b></p>
-                    <p>Make sure you have a supported theme selected. glass_dark should automatically install when you click inject - Go enable it.</p>
+                    <p>Close discord from task manager, and reopen.</p>
 					
 					<p><b>Everything is a bit gray!</b></p>
 					<p>Move the window around a bit.</p>		
