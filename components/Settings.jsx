@@ -142,7 +142,7 @@ function uninjectGlasscord() {
 }
 
 function checkIfInjected() {
-	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/glasscord.asar')) {
+	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/glasscord.new') && fs.existsSync('%appdata%../../resources/app/package.json') && fs.existsSync('%appdata%../../resources/app/glasscord.asar')) {
 		return true
 	}
 	else {
