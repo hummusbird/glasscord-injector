@@ -1,8 +1,9 @@
 const { React } = require('powercord/webpack');
-const { Divider, Button } = require('powercord/components');
+const { Divider, Tooltip, Button } = require('powercord/components');
 
 const fs = require('fs')
 const path = require('path');
+const { shell } = require('electron');
 
 module.exports = class GlasscordInjectorSettings extends React.PureComponent {
     constructor(props) {
@@ -16,11 +17,28 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
                     <div className='powercord-entities-manage-header'>
                     <span>Inject Glasscord</span>
                         <div className='buttons glasscord-injector-buttons'>
-                            <Button onClick={() => this.injectGlasscord()} color={Button.Colors.GREEN} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
-                                Inject
-                            </Button>
-                            <Button onClick={() => this.uninjectGlasscord()} color={Button.Colors.RED} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
-                                Uninject
+							{fs.existsSync('%appdata%../../resources/app') ?
+								<Button onClick={() => injectGlasscord()} color={Button.Colors.GREEN} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
+									Inject
+								</Button> :
+								<Tooltip text="Wrong filestructure!">
+									<Button className = "glasscordButton" disabled color={Button.Colors.GREEN} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
+									Inject
+									</Button>
+								</Tooltip> 
+								}
+							{fs.existsSync('%appdata%../../resources/app') ?
+								<Button onClick={() => uninjectGlasscord()} color={Button.Colors.RED} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
+									Uninject
+								</Button> :
+								<Tooltip text = "Wrong filestructure!">
+									<Button className = "glasscordButton" disabled color={Button.Colors.RED} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
+									Uninject
+									</Button>
+								</Tooltip>
+							}
+							<Button onClick={() => shell.openPath(path.resolve('%appdata%../../resources/'))} color={Button.Colors.GRAY} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
+                                Open resources folder
                             </Button>
                         </div>
                     </div>
@@ -29,7 +47,13 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
                     <p>Close discord from task manager, and reopen.</p>
 
                     <p><b>Everything is cyan!</b></p>
-                    <p>Make sure you have a supported theme selected. glass_dark should automatically install - Go enable it.</p>
+                    <p>Make sure you have a supported theme selected. glass_dark should automatically install when you click inject - Go enable it.</p>
+					
+					<p><b>Everything is a bit gray!</b></p>
+					<p>Move the window around a bit.</p>		
+
+					<p><b>It says i have the wrong filestructure!</b></p>
+					<p>You have the wrong filestructre. Install manually.</p>
                 </div>
             </div>
         );
@@ -38,6 +62,7 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
 
 function injectGlasscord() {
 	if (fs.existsSync('%appdata%../../resources/app')){
+
 		fs.copyFile(path.resolve(__dirname, 'glasscord.txt'), path.resolve('%appdata%../../resources/app/glasscord.asar'), (err) => {
 			if (err) throw err;
 			console.log("Copied glasscord.asar")
@@ -54,15 +79,16 @@ function injectGlasscord() {
 				console.log("Edited package.json")
 			})
 		})
-		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark_2'))) {
-			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark_2'), function(err) {
+
+		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark'))) {
+			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark'), function(err) {
 				if (err) {console.log(err)}
 			})
-			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../themes/glass_dark_2/theme.css'), (err) => {
+			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../themes/glass_dark/theme.css'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied theme.css")
 			})
-			fs.copyFile(path.resolve(__dirname, 'powercord_manifest.json'), path.resolve(__dirname, '../../themes/glass_dark_2/powercord_manifest.json'), (err) => {
+			fs.copyFile(path.resolve(__dirname, 'powercord_manifest.json'), path.resolve(__dirname, '../../themes/glass_dark/powercord_manifest.json'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied powercord_manifest.json")
 			})
@@ -71,6 +97,38 @@ function injectGlasscord() {
 		DiscordNative.app.relaunch()
 	}
 	else {
-		console.log("No")
+		console.log("Incorrect filestructure!")
+	}
+}
+
+function uninjectGlasscord() {
+	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json')){
+
+		fs.copyFile('%appdata%../../resources/app/package.original.json', '%appdata%../../resources/app/package.json', (err) => {
+			if (err) {console.log(err)}
+			console.log("Renamed package.json")
+
+			fs.unlink('%appdata%../../resources/app/package.original.json', (err) => {
+				if (err) {console.log(err)};
+				console.log("deleted package.original.json")
+			})	
+
+			fs.unlink('%appdata%../../resources/app/glasscord.asar', (err) => {
+				if (err) {console.log(err)};
+				console.log("deleted glasscord.asar")
+			})
+
+			fs.unlink('%appdata%../../resources/app/glasscord.new', (err) => {
+				if (err) {console.log(err)};
+				console.log("deleted package.original.json")
+				
+			})	
+
+			DiscordNative.app.relaunch()
+		}) 
+
+	}
+	else {
+		console.log("Incorrect filestructure!")
 	}
 }

@@ -1,0 +1,8 @@
+{
+    "name": "glass_dark",
+    "description": "Glass dark. For use with glasscord",
+    "version": "3",
+    "author": "hummusbird",
+    "theme": "theme.css",
+    "license": "MIT"
+}
