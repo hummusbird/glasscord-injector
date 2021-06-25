@@ -1,6 +1,6 @@
 # glasscord-injector
 
-Easily injects glasscord.
+Easily injects glasscord into powercord.
 
 Open the plugin settings window to inject and uninject
 
