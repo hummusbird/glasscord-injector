@@ -2,6 +2,4 @@
 
 Easily injects glasscord.
 
-Install and run .glasscord to inject
-
-Uninjector sold separately
+Open the plugin settings window to inject and uninject
