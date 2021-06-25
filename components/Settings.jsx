@@ -63,23 +63,6 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
 function injectGlasscord() {
 	if (fs.existsSync('%appdata%../../resources/app')){
 
-		fs.copyFile(path.resolve(__dirname, 'glasscord.txt'), path.resolve('%appdata%../../resources/app/glasscord.asar'), (err) => {
-			if (err) throw err;
-			console.log("Copied glasscord.asar")
-		})
-		fs.copyFile(path.resolve('%appdata%../../resources/app/package.json'), path.resolve('%appdata%../../resources/app/package.original.json'), (err) => {
-			if (err) throw err;
-			console.log("Created package.original.json")
-		})
-		fs.readFile('%appdata%../../resources/app/package.json', 'utf-8', function(err, data) {
-			if (err) throw err;
-			var newData = data.replace("index.js", "glasscord.asar")
-			fs.writeFile('%appdata%../../resources/app/package.json', newData, function(err) {
-				if (err) throw err;
-				console.log("Edited package.json")
-			})
-		})
-
 		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark'))) {
 			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark'), function(err) {
 				if (err) {console.log(err)}
@@ -94,7 +77,29 @@ function injectGlasscord() {
 			})
 		}
 
-		DiscordNative.app.relaunch()
+		fs.copyFile(path.resolve(__dirname, 'glasscord.txt'), path.resolve('%appdata%../../resources/app/glasscord.asar'), (err) => {
+			if (err) throw err;
+			console.log("Copied glasscord.asar")
+
+			fs.copyFile(path.resolve('%appdata%../../resources/app/package.json'), path.resolve('%appdata%../../resources/app/package.original.json'), (err) => {
+				if (err) throw err;
+				console.log("Created package.original.json")
+
+				fs.readFile('%appdata%../../resources/app/package.json', 'utf-8', function(err, data) {
+					if (err) throw err;
+					var newData = data.replace("index.js", "glasscord.asar")
+					fs.writeFile('%appdata%../../resources/app/package.json', newData, function(err) {
+						if (err) throw err;
+						console.log("Edited package.json")
+
+						DiscordNative.app.relaunch()
+					})
+				})
+			})
+		})
+		
+
+
 	}
 	else {
 		console.log("Incorrect filestructure!")
