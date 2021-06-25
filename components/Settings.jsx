@@ -15,13 +15,13 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
             <div>
                 <div className='powercord-entities-manage powercord-text'>
                     <div className='powercord-entities-manage-header'>
-                    <span>Inject Glasscord</span>
+                    <span>{checkIfInjected() ? "Glasscord injected!" : "Not Injected"}</span>
                         <div className='buttons glasscord-injector-buttons'>
-							{fs.existsSync('%appdata%../../resources/app') ?
+							{(fs.existsSync('%appdata%../../resources/app') && !checkIfInjected()) ?
 								<Button onClick={() => injectGlasscord()} color={Button.Colors.GREEN} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
 									Inject
 								</Button> :
-								<Tooltip text="Wrong filestructure!">
+								<Tooltip text={checkIfInjected() ? "Already injected!" : "Wrong Filestructure!"}>
 									<Button className = "glasscordButton" disabled color={Button.Colors.GREEN} look={Button.Looks.FILLED} size={Button.Sizes.LARGE}>
 									Inject
 									</Button>
@@ -138,5 +138,14 @@ function uninjectGlasscord() {
 	}
 	else {
 		console.log("Incorrect filestructure!")
+	}
+}
+
+function checkIfInjected() {
+	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/glasscord.asar')) {
+		return true
+	}
+	else {
+		return false
 	}
 }
