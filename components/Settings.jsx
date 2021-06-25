@@ -55,7 +55,7 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
 					<p><b>It says i have the wrong filestructure!</b></p>
 					<p>You have the wrong filestructre. Install manually.</p>
 
-					<p><b>I have an OS X titlebar!</b></p>#
+					<p><b>I have an OS X titlebar!</b></p>
 					<p>Press CTRL+R. It does that sometimes.</p>
                 </div>
             </div>
