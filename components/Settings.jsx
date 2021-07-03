@@ -66,15 +66,15 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
 function injectGlasscord() {
 	if (fs.existsSync('%appdata%../../resources/app')){
 
-		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark/'))) {
-			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark/'), function(err) {
+		if (!fs.existsSync(path.resolve(__dirname, '../../../themes/glass_dark/'))) {
+			fs.mkdir(path.resolve(__dirname, '../../../themes/glass_dark/'), function(err) {
 				if (err) {console.log(err)}
 			})
-			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../themes/glass_dark/theme.css'), (err) => {
+			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../../themes/glass_dark/theme.css'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied theme.css")
 			})
-			fs.copyFile(path.resolve(__dirname, 'powercord_manifest.json'), path.resolve(__dirname, '../../themes/glass_dark/powercord_manifest.json'), (err) => {
+			fs.copyFile(path.resolve(__dirname, 'powercord_manifest.json'), path.resolve(__dirname, '../../../themes/glass_dark/powercord_manifest.json'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied powercord_manifest.json")
 			})
