@@ -66,8 +66,8 @@ module.exports = class GlasscordInjectorSettings extends React.PureComponent {
 function injectGlasscord() {
 	if (fs.existsSync('%appdata%../../resources/app')){
 
-		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark'))) {
-			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark'), function(err) {
+		if (!fs.existsSync(path.resolve(__dirname, '../../themes/glass_dark/'))) {
+			fs.mkdir(path.resolve(__dirname, '../../themes/glass_dark/'), function(err) {
 				if (err) {console.log(err)}
 			})
 			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../themes/glass_dark/theme.css'), (err) => {
@@ -110,7 +110,7 @@ function injectGlasscord() {
 }
 
 function uninjectGlasscord() {
-	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.original.json')){
+	if (fs.existsSync('%appdata%../../resources/app/package.original.json')){
 
 		fs.copyFile('%appdata%../../resources/app/package.original.json', '%appdata%../../resources/app/package.json', (err) => {
 			if (err) {console.log(err)}
@@ -142,7 +142,7 @@ function uninjectGlasscord() {
 }
 
 function checkIfInjected() {
-	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/glasscord.new') && fs.existsSync('%appdata%../../resources/app/package.json') && fs.existsSync('%appdata%../../resources/app/glasscord.asar')) {
+	if (fs.existsSync('%appdata%../../resources/app/package.original.json') && fs.existsSync('%appdata%../../resources/app/package.json') && fs.existsSync('%appdata%../../resources/app/glasscord.asar')) {
 		return true
 	}
 	else {
