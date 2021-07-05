@@ -70,17 +70,17 @@ function injectGlasscord() {
 			fs.mkdir(path.resolve(__dirname, '../../../themes/glass_dark/'), function(err) {
 				if (err) {console.log(err)}
 			})
-			fs.copyFile(path.resolve(__dirname, 'theme.css'), path.resolve(__dirname, '../../../themes/glass_dark/theme.css'), (err) => {
+			fs.copyFile(path.resolve(__dirname, '../asar/theme.css'), path.resolve(__dirname, '../../../themes/glass_dark/theme.css'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied theme.css")
 			})
-			fs.copyFile(path.resolve(__dirname, 'powercord_manifest.json'), path.resolve(__dirname, '../../../themes/glass_dark/powercord_manifest.json'), (err) => {
+			fs.copyFile(path.resolve(__dirname, '../asar/powercord_manifest.json'), path.resolve(__dirname, '../../../themes/glass_dark/powercord_manifest.json'), (err) => {
 				if (err) {console.log(err)};
 				console.log("Copied powercord_manifest.json")
 			})
 		}
 
-		fs.copyFile(path.resolve(__dirname, 'glasscord.txt'), path.resolve('%appdata%../../resources/app/glasscord.asar'), (err) => {
+		fs.copyFile(path.resolve(__dirname, '../asar/glasscord.txt'), path.resolve('%appdata%../../resources/app/glasscord.asar'), (err) => {
 			if (err) throw err;
 			console.log("Copied glasscord.asar")
 

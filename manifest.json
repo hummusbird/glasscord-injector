@@ -1,7 +1,7 @@
 {
   "name": "glasscord-injector",
-  "version": "1.0.1",
-  "description": "Injects Glasscord",
+  "version": "1.0.2",
+  "description": "Injects glasscord",
   "author": "hummusbird",
   "license": "MIT"
 }
